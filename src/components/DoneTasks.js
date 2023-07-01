@@ -1,13 +1,33 @@
-export default function DoneTasks() {
+import React, { useState } from "react"
+
+export default function DoneTasks({ tasks }) {
+    const handleChange = (e) => {
+        const id = e.target.value;
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ isDone: false })
+        };
+        fetch("http://localhost:3000/tasks/"+id, requestOptions)
+            .then(response => {
+                return response.json()
+            })
+            .then(() => {
+                // setToDoTasks(tasks.filter(t => t.taskId !== parseInt(id)))
+            })
+    }
+
     return (
         <>
             Done
             <ul>
-                <li>Task 1</li>
-                <li>Task 2</li>
-                <li>Task 3</li>
-                <li>Task 4</li>
-                <li>Task 5</li>
+            {
+                tasks.map(t => {
+                    return(
+                    <li key={t.taskId}><input checked type="checkbox" value={t.taskId} onClick={handleChange}/>{t.description}</li>
+                    )
+                })
+            }
             </ul>
         </>
     )
