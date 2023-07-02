@@ -2,7 +2,11 @@ import Layout from './components/Layout';
 
 function App() {
   return (
-    <Layout />
+      <div className="flex h-screen">
+        <div className="m-auto">
+          <Layout />
+        </div>
+      </div>
   );
 }
 
